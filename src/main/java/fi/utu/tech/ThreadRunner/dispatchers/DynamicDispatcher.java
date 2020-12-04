@@ -48,7 +48,7 @@ public class DynamicDispatcher implements Dispatcher {
 
 			threadPool.shutdown();
 			try {
-				if (!threadPool.awaitTermination(3500, TimeUnit.MILLISECONDS)) {
+				if (!threadPool.awaitTermination(30, TimeUnit.SECONDS)) {
 					threadPool.shutdownNow();
 				}
 			} catch (InterruptedException ie) {
@@ -74,9 +74,7 @@ class DynamicThread implements Runnable {
 	public void run() {
 		try {
 			Worker worker = WorkerFactory.createWorker(controlSet.getWorkerType());
-			for (Integer n = 0; n > i; n++) {
-				worker.count(n);
-			}
+			worker.count(i);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
